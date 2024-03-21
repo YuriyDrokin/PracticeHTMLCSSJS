@@ -3,12 +3,60 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+
+  <title>Todo list Manager by Yuriy Drkn</title>
+
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="todoListManager.css">
 </head>
 
 <body>
+  <main>
+    <div class="wrap">
+      <section class="heading">
+        <p class="title">Todo List</p>
+        <p class="subtitle">Manage all your tasks here!</p>
+      </section>
 
+      <section class="task-manager">
+        <div class="search-box">
+          <form class="search">
+            <input type="text" name="task" placeholder="search task" autocomplete="off">
+            <i class="bi bi-x-circle reset"></i>
+          </form>
+        </div>
+        <div class="task-box">
+          <ul class="tasks">
+            <li>
+              <span>Task 1</span>
+              <i class="bi bi-trash-fill delete"></i>
+            </li>
+            <li>
+              <span>Task 2</span>
+              <i class="bi bi-trash-fill delete"></i>
+            </li>
+            <li>
+              <span>Task 3</span>
+              <i class="bi bi-trash-fill delete"></i>
+            </li>
+          </ul>
+          <form class="add">
+            <input type="text" name="task" placeholder="add task" autocapitalize="off">
+            <input type="submit" value="Add">
+          </form>
+
+        </div>
+        <div class="message">
+          <span>You Have 3 tasks to do ...</span>
+          <button class="clear">Remove All</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="todoListManager.js"></script>
 </body>
 
 </html>
