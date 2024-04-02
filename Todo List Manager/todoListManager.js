@@ -2,6 +2,7 @@ const addForm = document.querySelector(".add");
 const tasks = document.querySelector(".tasks");
 const clearAll = document.querySelector(".clear");
 const messageSpan = document.querySelector(".message span");
+const searchForm = document.querySelector(".search");
 
 function updateMessage() {
   const textLength = tasks.children.length;
@@ -42,3 +43,43 @@ clearAll.addEventListener("click", event => {
   })
 });
 updateMessage();
+
+function filterTask(term) {
+  Array.from(tasks.children) // selected all the children of all the Taasks and added to the Array
+
+    .filter(task => { // we filter them by the lowercase and trim them if there are some spaces in the line 
+      return !task.textContent.toLowerCase().includes(term);
+    })
+
+    .forEach(task => { // if our search doesnt match with list of array we hide them 
+      task.classList.add("hide");
+    });
+
+  /* Point of the Array below its to filter our existing array with elements and remove the hide css option from them */
+  Array.from(tasks.children)
+    .filter(task => {
+      return task.textContent.toLowerCase().includes(term);
+
+    })
+    .forEach(task => {
+      task.classList.remove("hide");
+    });
+
+
+}
+
+searchForm.addEventListener("keyup", event => {
+  const term = searchForm.task.value.trim();
+
+  filterTask(term);
+});
+
+searchForm.addEventListener("click", event => {
+  if (event.target.classList.contains("reset")) {
+    searchForm.reset();
+
+    const term = searchForm.task.value.trim().toLowerCase();
+
+    filterTask(term);
+  }
+})
