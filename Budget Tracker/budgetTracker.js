@@ -44,3 +44,16 @@ form.addEventListener("submit", event => {
   form.reset();
 
 })
+
+function getTransaction() {
+  transactions.forEach(transaction => {
+
+    if (transaction.amount > 0) {
+      incomeList.innerHTML += generateTemplate(transaction.id, transaction.source, transaction.amount, transaction.time);
+    } else {
+      expenseList.innerHTML += generateTemplate(transaction.id, transaction.source, transaction.amount, transaction.time);
+    }
+  })
+}
+
+getTransaction();
