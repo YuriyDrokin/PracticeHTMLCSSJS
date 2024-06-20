@@ -68,7 +68,10 @@ function addTransaction(source, amount) {
 
 form.addEventListener("submit", event => {
   event.preventDefault();
-  addTransaction(form.source.value, Number(form.amount.value));
+  if (form.source.value.trim() === "" || form.amount.value === "") {
+    return alert("Please add a proper value");
+  }
+  addTransaction(form.source.value.trim(), Number(form.amount.value));
   updateStatistics();
   form.reset();
 
