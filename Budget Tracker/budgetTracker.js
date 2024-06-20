@@ -1,7 +1,35 @@
 const form = document.querySelector(".add-transaction");
 const incomeList = document.querySelector("ul.income-list");
 const expenseList = document.querySelector("ul.expense-list");
+
+const balance = document.getElementById("balance");
+const income = document.getElementById("income");
+const expense = document.getElementById("expense");
+
 let transactions = localStorage.getItem("transactions") !== null ? JSON.parse(localStorage.getItem("transactions")) : [];
+
+
+function updateStatistics() {
+
+  const updatedIncome = transactions
+    .filter(transaction => transaction.amount > 0)
+    .reduce((total, transaction) => total += transaction.amount, 0);
+
+  console.log(updatedIncome);
+
+  const updatedExpense = transactions
+    .filter(transaction => transaction.amount < 0)
+    .reduce((total, transaction) => total += Math.abs(transaction.amount), 0);
+
+  console.log(updatedExpense);
+
+  updatedBalance = updatedIncome - updatedExpense;
+  balance.textContent = updatedBalance;
+  income.textContent = updatedIncome;
+  expense.textContent = updatedExpense;
+
+}
+
 
 
 function generateTemplate(id, source, amount, time) {
@@ -41,6 +69,7 @@ function addTransaction(source, amount) {
 form.addEventListener("submit", event => {
   event.preventDefault();
   addTransaction(form.source.value, Number(form.amount.value));
+  updateStatistics();
   form.reset();
 
 })
@@ -56,7 +85,7 @@ function getTransaction() {
   })
 }
 
-getTransaction();
+
 
 function deleteTransaction(id) {
 
@@ -73,7 +102,9 @@ incomeList.addEventListener("click", event => {
   if (event.target.classList.contains("delete")) {
     event.target.parentElement.remove();
     deleteTransaction(Number(event.target.parentElement.dataset.id));
+    updateStatistics();
   }
+
 });
 
 expenseList.addEventListener("click", event => {
@@ -81,5 +112,13 @@ expenseList.addEventListener("click", event => {
   if (event.target.classList.contains("delete")) {
     event.target.parentElement.remove();
     deleteTransaction(Number(event.target.parentElement.dataset.id));
+    updateStatistics();
   }
 });
+
+function init() {
+  updateStatistics();
+  getTransaction();
+}
+
+init();
